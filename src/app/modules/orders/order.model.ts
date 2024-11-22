@@ -27,7 +27,7 @@ const orderSchema = new Schema<TOrder>(
     },
   },
   {
-    timestamps: true, // Automatically add createdAt and updatedAt
+    timestamps: true, 
   }
 );
 const Order = model<TOrder>('Order', orderSchema);

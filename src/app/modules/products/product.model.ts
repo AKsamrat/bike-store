@@ -3,26 +3,29 @@ import { TProduct } from './product.interface';
 
 // Define the schema for the TProduct interface
 const productSchema = new Schema<TProduct>({
-  name: {
+  title: {
     type: String,
-    required: [true, 'Product name is required'],
+    required: [true, 'Book title is required'],
     trim: true,
   },
-  brand: {
+  author: {
     type: String,
-    required: [true, 'Brand name is required'],
+    required: [true, 'author name is required'],
     trim: true,
   },
   price: {
-    type: Number,
-    required: [true, 'Price is required'],
-    min: [0, 'Price must be greater than or equal to 0'],
-  },
+      type: Number,
+      required: [true,'Price is required'],
+      validate: {
+        validator: (value: number) => value >= 0,
+        message: 'Price cannot be negative',
+      },
+    },
   category: {
     type: String,
     required: [true, 'Category is required'],
     enum: {
-      values: ['Mountain', 'Road', 'Hybrid', 'Electric'],
+      values: ['Fiction', 'Science', 'SelfDevelopment', 'Poetry','Religious'],
       message: '{VALUE} is not a valid category',
     },
     trim: true,
@@ -54,7 +57,31 @@ const productSchema = new Schema<TProduct>({
     // timestamps: true,
     
   },
+  isDeleted: {
+      type: Boolean,
+      default: false,
+    },
 });
+
+//query middleware
+
+productSchema.pre('save', function (next) {
+  this.inStock = this.quantity > 0;
+  next();
+});
+
+productSchema.pre('find', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+productSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+
+
 
 // Create and export the model
 const Product = model<TProduct>('Product', productSchema);

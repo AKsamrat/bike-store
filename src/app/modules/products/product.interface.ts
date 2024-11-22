@@ -1,11 +1,12 @@
 export type TProduct = {
-  name: string
-  brand: string
+  title: string
+  author: string
   price: number
-  category: 'Mountain'| 'Road'| 'Hybrid'| 'Electric'
+  category: 'Fiction'| 'Science'| 'SelfDevelopment'| 'Poetry'|'Religious'
   description: string
   quantity: number
   inStock: boolean
   createdAt?: string,
   updatedAt?: string,
+  isDeleted?:boolean
 }

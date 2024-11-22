@@ -4,8 +4,9 @@ import { productController } from './product.controller';
 
 const router = express.Router();
 router.post('/create-product', productController.createProduct);
-// router.get('/', StudentController.getAllStudents);
-// router.delete('/:studentId', StudentController.deleteStudent);
-// router.get('/:id', StudentController.getSingleStudents);
+router.get('/', productController.getAllProduct);
+router.get('/:productId', productController.getSingleProduct);
+router.put('/:productId', productController.updateProduct);
+router.delete('/:productId', productController.deleteProduct);
 
 export const ProductRoutes = router;

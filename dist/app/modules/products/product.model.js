@@ -59,7 +59,7 @@ const productSchema = new mongoose_1.Schema({
         type: Boolean,
         default: false,
     },
-});
+}, { versionKey: false });
 //query middleware
 productSchema.pre('save', function (next) {
     this.inStock = this.quantity > 0;

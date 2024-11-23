@@ -26,8 +26,10 @@ const orderSchema = new Schema<TOrder>(
       min: [0, 'Total price cannot be negative'],
     },
   },
+   
   {
     timestamps: true,
+     versionKey: false
   },
 );
 const Order = model<TOrder>('Order', orderSchema);

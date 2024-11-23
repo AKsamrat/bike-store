@@ -59,7 +59,9 @@ const productSchema = new Schema<TProduct>({
     type: Boolean,
     default: false,
   },
-});
+},
+{versionKey: false},
+);
 
 //query middleware
 

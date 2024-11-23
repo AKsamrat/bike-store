@@ -22,7 +22,8 @@ const createProduct = async (req: Request, res: Response) => {
   } catch (error:any) {
     res.status(500).json({
       success: false,
-      message:error.message || 'Something went wrong',
+      message: error.message || 'Something went wrong',
+      stack: error.stack,
       error,
     })
   }
@@ -32,6 +33,10 @@ const getAllProduct = async (req: Request, res: Response) => {
     
     const result = await productService.getAllProduct()
 
+    if (!result) {
+        throw new Error('Book not found');
+      }
+
     res.status(200).json({
       success: true,
       message: 'Book retrieved successfully',
@@ -40,7 +45,8 @@ const getAllProduct = async (req: Request, res: Response) => {
   } catch (error:any) {
     res.status(500).json({
       success: false,
-      message:error.message || 'Something went wrong',
+      message: error.message || 'Something went wrong',
+      stack: error.stack,
       error,
     })
   }
@@ -50,16 +56,19 @@ const getSingleProduct = async (req: Request, res: Response) => {
     
     const productId = req.params.productId
     const result = await productService.getSingleProduct(productId);
-
+    if (!result) {
+        throw new Error('Book not found');
+      }
     res.status(200).json({
       success: true,
       message: 'Book retrive successfully',
       data:result,
     })
   }catch (error:any) {
-    res.status(500).json({
+    res.status(404).json({
       success: false,
-      message:error.message || 'Something went wrong',
+      message: error.message || 'Something went wrong',
+      stack: error.stack,
       error,
     })
   }
@@ -78,7 +87,8 @@ const updateProduct = async (req: Request, res: Response) => {
   } catch (error:any) {
     res.status(500).json({
       success: false,
-      message:error.message || 'Something went wrong',
+      message: error.message || 'Something went wrong',
+      stack: error.stack,
       error,
     })
   }
@@ -88,17 +98,19 @@ const deleteProduct = async (req: Request, res: Response) => {
     const productId = req.params.productId
     const result = await productService.deleteProduct(productId);
      if (!result) {
-        throw new Error('Product not found');
+        throw new Error('Book not found');
       }
     res.status(200).json({
       success: true,
       message: 'Book Delete successfully',
+      
       data:result,
     })
   } catch (error:any) {
     res.status(500).json({
       success: false,
-      message:error.message || 'Something went wrong',
+      message: error.message || 'Something went wrong',
+      stack: error.stack,
       error,
     })
   }

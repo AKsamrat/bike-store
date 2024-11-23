@@ -16,11 +16,12 @@ const calculateRevenue= async () => {
     },
     {
       $project: {
+        _id:0,
         totalRevenue: 1
       }
     }
   ]);
-  return result;
+  return { totalRevenue: result[0]?.totalRevenue || 0 };;
  }
 export const orderService = {
   createOrder,

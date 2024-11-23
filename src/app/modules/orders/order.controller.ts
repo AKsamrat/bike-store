@@ -4,7 +4,7 @@ import Product from "../products/product.model";
 
 const createOrder = async (req: Request, res: Response) => {
   try {
-    const { email, product, quantity,totalPrice } = req.body
+    const {  product, quantity} = req.body
      // Find the product and check if the quantity is sufficient
     const Oproduct = await Product.findById(product);
     
@@ -32,7 +32,8 @@ const createOrder = async (req: Request, res: Response) => {
   } catch (error:any) {
     res.status(500).json({
       success: false,
-      message:(error.message || 'Failed to place order'),
+      message: (error.message || 'Failed to place order'),
+       stack: error.stack,
       error,
     })
   }
@@ -45,7 +46,7 @@ const calculateRevenue = async (req: Request, res: Response) => {
 
     res.status(200).json({
       success: true,
-      message: 'revenue calculate successfully',
+      message: 'Revenue calculated successfully',
       data:result,
     })
   } catch (error:any) {

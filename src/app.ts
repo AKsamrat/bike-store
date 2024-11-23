@@ -3,7 +3,6 @@ import express, { Application, Request, Response } from 'express';
 import { ProductRoutes } from './app/modules/products/product.route';
 import { orderRoutes } from './app/modules/orders/order.route';
 
-
 const app: Application = express();
 
 // perser

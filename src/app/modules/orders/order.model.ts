@@ -1,5 +1,5 @@
-import { model, Schema } from "mongoose";
-import { TOrder } from "./order.interface";
+import { model, Schema } from 'mongoose';
+import { TOrder } from './order.interface';
 
 const orderSchema = new Schema<TOrder>(
   {
@@ -27,8 +27,8 @@ const orderSchema = new Schema<TOrder>(
     },
   },
   {
-    timestamps: true, 
-  }
+    timestamps: true,
+  },
 );
 const Order = model<TOrder>('Order', orderSchema);
 

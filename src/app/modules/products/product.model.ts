@@ -14,18 +14,18 @@ const productSchema = new Schema<TProduct>({
     trim: true,
   },
   price: {
-      type: Number,
-      required: [true,'Price is required'],
-      validate: {
-        validator: (value: number) => value >= 0,
-        message: 'Price cannot be negative',
-      },
+    type: Number,
+    required: [true, 'Price is required'],
+    validate: {
+      validator: (value: number) => value >= 0,
+      message: 'Price cannot be negative',
     },
+  },
   category: {
     type: String,
     required: [true, 'Category is required'],
     enum: {
-      values: ['Fiction', 'Science', 'SelfDevelopment', 'Poetry','Religious'],
+      values: ['Fiction', 'Science', 'SelfDevelopment', 'Poetry', 'Religious'],
       message: '{VALUE} is not a valid category',
     },
     trim: true,
@@ -49,18 +49,16 @@ const productSchema = new Schema<TProduct>({
     type: Date,
     default: Date.now,
     // timestamps: true,
-    
   },
   updatedAt: {
     type: Date,
     default: Date.now,
     // timestamps: true,
-    
   },
   isDeleted: {
-      type: Boolean,
-      default: false,
-    },
+    type: Boolean,
+    default: false,
+  },
 });
 
 //query middleware
@@ -79,9 +77,6 @@ productSchema.pre('findOne', function (next) {
   this.find({ isDeleted: { $ne: true } });
   next();
 });
-
-
-
 
 // Create and export the model
 const Product = model<TProduct>('Product', productSchema);

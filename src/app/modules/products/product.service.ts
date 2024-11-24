@@ -20,9 +20,11 @@ const updateProduct = async (productId: string, payload: TProduct) => {
   return result;
 };
 const deleteProduct = async (productId: string) => {
-  console.log(productId);
+  // console.log(productId);
   const result = await Product.findByIdAndUpdate(productId, {
     isDeleted: true,
+  },{
+    new: true,
   });
   return result;
 };

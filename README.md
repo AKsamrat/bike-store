@@ -8,6 +8,7 @@
 - Two different database collection implemented in this project(products and orders)
 - Use some validation like email, enum type category 
 - Use some query middleware
+- Zod Validation has been implemented in this project.
 
 ## <code style="color:green"> Project setup</code>
 

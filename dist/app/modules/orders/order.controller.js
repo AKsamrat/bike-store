@@ -15,9 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.orderController = void 0;
 const order_service_1 = require("./order.service");
 const product_model_1 = __importDefault(require("../products/product.model"));
+const order_validationZod_1 = __importDefault(require("./order.validationZod"));
 const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { product, quantity } = req.body;
+        const zodParsedata = order_validationZod_1.default.parse(req.body);
         // Find the product and check if the quantity is sufficient
         const Oproduct = yield product_model_1.default.findById(product);
         if (!Oproduct) {
@@ -29,7 +31,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         if (Oproduct.quantity < quantity) {
             throw new Error('Insufficient product quantity');
         }
-        const result = yield order_service_1.orderService.createOrder(req.body);
+        const result = yield order_service_1.orderService.createOrder(zodParsedata);
         res.status(200).json({
             success: true,
             message: 'Order created successfully',

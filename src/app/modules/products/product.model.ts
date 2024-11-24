@@ -45,22 +45,17 @@ const productSchema = new Schema<TProduct>({
     required: [true, 'Stock status is required'],
     default: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    // timestamps: true,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-    // timestamps: true,
-  },
+  
   isDeleted: {
     type: Boolean,
     default: false,
   },
 },
-{versionKey: false},
+  {
+    timestamps: true,
+    versionKey: false
+  
+},
 );
 
 //query middleware

@@ -1,10 +1,13 @@
 import { Request, Response } from 'express';
 import { orderService } from './order.service';
 import Product from '../products/product.model';
+import orderValidationZodSchema from './order.validationZod';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
     const { product, quantity } = req.body;
+
+    const zodParsedata = orderValidationZodSchema.parse(req.body);
     // Find the product and check if the quantity is sufficient
     const Oproduct = await Product.findById(product);
 
@@ -18,7 +21,7 @@ const createOrder = async (req: Request, res: Response) => {
       throw new Error('Insufficient product quantity');
     }
 
-    const result = await orderService.createOrder(req.body);
+    const result = await orderService.createOrder(zodParsedata);
 
     res.status(200).json({
       success: true,

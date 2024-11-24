@@ -45,21 +45,14 @@ const productSchema = new mongoose_1.Schema({
         required: [true, 'Stock status is required'],
         default: true,
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-        // timestamps: true,
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-        // timestamps: true,
-    },
     isDeleted: {
         type: Boolean,
         default: false,
     },
-}, { versionKey: false });
+}, {
+    timestamps: true,
+    versionKey: false
+});
 //query middleware
 productSchema.pre('save', function (next) {
     this.inStock = this.quantity > 0;

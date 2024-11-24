@@ -8,21 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productController = void 0;
 const product_service_1 = require("./product.service");
+const product_validationZod_1 = __importDefault(require("./product.validationZod"));
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
-        // const productData = {
-        //   $set: {
-        //     body,
-        //     createdAt: new Date(),
-        //     updatedAt: new Date(),
-        //      isDeleted: false,
-        //   }
-        // }
-        const result = yield product_service_1.productService.createProduct(body);
+        //validation using zod
+        const zodParsedata = product_validationZod_1.default.parse(body);
+        const result = yield product_service_1.productService.createProduct(zodParsedata);
         res.status(200).json({
             success: true,
             message: 'Book created successfully',

@@ -15,9 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.productController = void 0;
 const product_service_1 = require("./product.service");
 const product_validationZod_1 = __importDefault(require("./product.validationZod"));
+const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
+const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
+const http_status_codes_1 = require("http-status-codes");
 const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const body = req.body;
+        console.log(req.body);
         //validation using zod
         const zodParsedata = product_validationZod_1.default.parse(body);
         const result = yield product_service_1.productService.createProduct(zodParsedata);
@@ -37,28 +41,15 @@ const createProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
 });
-const getAllProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const result = yield product_service_1.productService.getAllProduct();
-        if (!result) {
-            throw new Error('Book not found');
-        }
-        res.status(200).json({
-            success: true,
-            message: 'Book retrieved successfully',
-            data: result,
-        });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    }
-    catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message || 'Something went wrong',
-            stack: error.stack,
-            error,
-        });
-    }
-});
+const getAllProduct = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield product_service_1.productService.getAllProduct(req.query);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_codes_1.StatusCodes.OK,
+        success: true,
+        message: 'Blog retrived successfully',
+        data: result,
+    });
+}));
 const getSingleProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const productId = req.params.productId;
@@ -86,6 +77,7 @@ const updateProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const productId = req.params.productId;
         const body = req.body;
+        console.log(productId, body);
         const result = yield product_service_1.productService.updateProduct(productId, body);
         res.status(200).json({
             success: true,

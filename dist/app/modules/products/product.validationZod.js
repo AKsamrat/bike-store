@@ -19,11 +19,12 @@ exports.productZodValidationSchema = zod_1.z.object({
         'Religious',
     ]), // Category is restricted to specific values
     description: zod_1.z.string().min(1, 'Description is required'),
+    imageUrl: zod_1.z.string(),
     quantity: zod_1.z
         .number()
         .int('Quantity must be an integer')
         .min(0, 'Quantity cannot be less than zero'),
-    inStock: zod_1.z.boolean(),
+    inStock: zod_1.z.boolean().optional(),
     isDeleted: zod_1.z.boolean().optional(),
 });
 // Example usage

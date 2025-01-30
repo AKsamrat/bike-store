@@ -101,9 +101,9 @@ const changePassword = async (
 
   // checking if the user is blocked
 
-  const userStatus = user?.status;
+  const userStatus = user?.userStatus;
 
-  if (userStatus === 'inActive') {
+  if (userStatus === 'inactive') {
     throw new AppError(StatusCodes.FORBIDDEN, 'This user is blocked ! !');
   }
 
@@ -111,7 +111,7 @@ const changePassword = async (
 
   console.log(payload.oldPassword, user?.password)
 
-  if (!(await User.isPasswordMatched(payload.oldPassword, user?.password)))
+  if (!(await User.isPasswordMatched(payload?.oldPassword, user?.password)))
     throw new AppError(StatusCodes.FORBIDDEN, 'Password do not matched');
 
   //hash new password

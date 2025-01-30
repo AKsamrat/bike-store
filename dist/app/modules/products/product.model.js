@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable prettier/prettier */
 const mongoose_1 = require("mongoose");
 // Define the schema for the TProduct interface
 const productSchema = new mongoose_1.Schema({
@@ -35,6 +36,7 @@ const productSchema = new mongoose_1.Schema({
         required: [true, 'Description is required'],
         trim: true,
     },
+    imageUrl: { type: String },
     quantity: {
         type: Number,
         required: [true, 'Quantity is required'],

@@ -5,6 +5,7 @@ import httpStatus from 'http-status';
 import sendResponse from '../../utils/sendResponse';
 import catchAsync from '../../utils/catchAsync';
 import Product from '../products/product.model';
+import { IUser } from '../user/user.interface';
 
 
 const createOrder = catchAsync(async (req, res) => {
@@ -24,7 +25,7 @@ const createOrder = catchAsync(async (req, res) => {
     throw new Error('Insufficient product quantity');
   }
   console.log(req.body);
-  const order = await orderService.createOrder(user, req.body, req.ip!);
+  const order = await orderService.createOrder(user as IUser, req.body, req.ip!);
   Oproduct.quantity -= quantity;
   await Product.findByIdAndUpdate(product, { quantity: Oproduct.quantity });
 

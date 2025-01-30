@@ -13,14 +13,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.productService = void 0;
+/* eslint-disable prettier/prettier */
+const QueryBuilder_1 = __importDefault(require("../../builder/QueryBuilder"));
 const product_model_1 = __importDefault(require("./product.model"));
 const createProduct = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.default.create(payload);
     return result;
 });
-const getAllProduct = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield product_model_1.default.find();
-    return result;
+const getAllProduct = (query) => __awaiter(void 0, void 0, void 0, function* () {
+    const searchableFields = ['title', 'author'];
+    const product = new QueryBuilder_1.default(product_model_1.default.find(), query)
+        .search(searchableFields)
+        .filter();
+    const result = yield product.modelQuery;
+    const meta = yield product.countTotal();
+    console.log(meta);
+    return {
+        meta,
+        result,
+    };
 });
 const getSingleProduct = (productId) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield product_model_1.default.findById(productId);

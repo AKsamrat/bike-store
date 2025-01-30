@@ -22,6 +22,7 @@ export interface IUser extends Document {
 export interface IUserMethods {
   comparePassword(candidatePassword: string): Promise<boolean>;
   generateToken(): string;
+
 }
 export interface UserModel extends Model<IUser> {
   //instance methods for checking if the user exist
@@ -38,7 +39,7 @@ export interface UserModel extends Model<IUser> {
 }
 
 // Create a new Model type that knows about IUserMethods...
-type TUserModel = Model<IUser, IUserMethods>;
+// type TUserModel = Model<IUser, {}, IUserMethods>;
 
-export default TUserModel;
+// export default TUserModel;
 export type TUserRole = keyof typeof UserRole;

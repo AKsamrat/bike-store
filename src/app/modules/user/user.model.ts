@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
-import TUserModel, { IUser, IUserMethods } from "./user.interface";
+import { IUser, IUserMethods, UserModel } from "./user.interface";
 import { UserRole } from "./user.constants";
 
-const UserSchema = new Schema<IUser, TUserModel, IUserMethods>(
+const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
   {
     name: { type: String, required: true, trim: true },
     email: {
@@ -41,6 +41,7 @@ const UserSchema = new Schema<IUser, TUserModel, IUserMethods>(
     phone: { type: String, default: "N/A" },
     address: { type: String, default: "N/A" },
     city: { type: String, default: "N/A" },
+
   },
   {
     timestamps: true,
@@ -81,6 +82,6 @@ UserSchema.statics.isJWTIssuedBeforePasswordChanged = function (
 };
 
 
-const User = mongoose.model<IUser, TUserModel>("User", UserSchema);
+const User = mongoose.model<IUser, UserModel>("User", UserSchema);
 
 export default User;

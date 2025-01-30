@@ -1,4 +1,4 @@
-## <code style="color:green"> Project Name: Book Shop</code>
+## <code style="color:green"> Project Name: wiseBook</code>
 
 
 ### <code style="color:aqua">Features  :</code>

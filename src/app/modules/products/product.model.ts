@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Schema, model } from 'mongoose';
 import { TProduct } from './product.interface';
 
@@ -35,6 +36,7 @@ const productSchema = new Schema<TProduct>({
     required: [true, 'Description is required'],
     trim: true,
   },
+  imageUrl: { type: String },
   quantity: {
     type: Number,
     required: [true, 'Quantity is required'],
@@ -45,7 +47,7 @@ const productSchema = new Schema<TProduct>({
     required: [true, 'Stock status is required'],
     default: true,
   },
-  
+
   isDeleted: {
     type: Boolean,
     default: false,
@@ -54,8 +56,8 @@ const productSchema = new Schema<TProduct>({
   {
     timestamps: true,
     versionKey: false
-  
-},
+
+  },
 );
 
 //query middleware

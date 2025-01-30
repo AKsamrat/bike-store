@@ -4,8 +4,8 @@ export type TProduct = {
   price: number;
   category: 'Fiction' | 'Science' | 'SelfDevelopment' | 'Poetry' | 'Religious';
   description: string;
+  imageUrl?: string;
   quantity: number;
-  inStock: boolean;
-  
+  inStock?: boolean;
   isDeleted?: boolean;
 };
